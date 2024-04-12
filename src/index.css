@@ -1,0 +1,80 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.swiper-pagination {
+  position: absolute;
+  bottom: 10px;
+
+  margin-bottom: 1rem;
+}
+
+
+/* Custom styles for the datepicker */
+.react-datepicker {
+  font-family: Arial, sans-serif;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Custom styles for the datepicker header */
+.react-datepicker__header {
+  background-color:#AB6F43;
+  color: white;
+  border-bottom: none;
+}
+.react-datepicker__current-month {
+  
+  color: white;
+
+}
+
+/* Custom styles for the month and year select dropdown */
+.react-datepicker__month-dropdown,
+.react-datepicker__year-dropdown {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Custom styles for the selected date */
+.react-datepicker__day--selected {
+  background-color: #007bff;
+  color: #fff;
+}
+
+/* Custom styles for the today's date */
+.react-datepicker__day--today {
+  font-weight: bold;
+}
+
+/* Custom styles for the calendar navigation arrows */
+.react-datepicker__navigation--previous,
+.react-datepicker__navigation--next {
+  border: none;
+  background-color: transparent;
+  color: #007bff;
+}
+
+/* Custom styles for the calendar weekday names */
+.react-datepicker__day-name {
+  font-weight: bold;
+  color: white;
+}
+
+/* Custom styles for the calendar days */
+.react-datepicker__day {
+  padding: 0.4rem;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+/* Hover effect for calendar days */
+.react-datepicker__day:hover {
+  background-color: #f0f0f0;
+}
+
+
+
