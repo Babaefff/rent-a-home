@@ -139,6 +139,7 @@ export default function Home() {
         <div className="flex items-center w-full lg:max-w-6xl mx-auto p-3 ">
           <Swiper
             navigation
+            autoplay={{delay:4000}}
             pagination={{ clickable: true }}
             className="relative"
           >

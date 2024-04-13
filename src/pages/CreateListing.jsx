@@ -1,4 +1,5 @@
 import BookingDates from "../components/BookingDates";
+import Maps from "../components/Map";
 
 const CreateListing = () => {
   return (
@@ -23,14 +24,8 @@ const CreateListing = () => {
               id="description"
               required
             />
-            <input
-              type="text"
-              placeholder="Address"
-              className="border p-3 rounded-lg"
-              id="address"
-              required
-            />
-            <div className="flex gap-6 flex-wrap">
+            <Maps />
+            <div className="flex flex-wrap gap-6 justify-center lg:justify-stretch">
               <div className="flex gap-2">
                 <input type="checkbox" name="" id="sale" className="w-5" />
                 <span>Sell</span>
@@ -48,7 +43,7 @@ const CreateListing = () => {
                 <span>Bath</span>
               </div>
             </div>
-            <div className="flex flex-wrap gap-6">
+            <div className="flex flex-wrap gap-6 items-center sm:items-stretch">
               <div className=" flex items-center gap-2">
                 <input
                   type="number"
