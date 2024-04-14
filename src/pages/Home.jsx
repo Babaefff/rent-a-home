@@ -6,14 +6,14 @@ import "swiper/css/bundle";
 import ListingItem from "../components/ListingItem";
 import { MdLocationOn } from "react-icons/md";
 
-
 export default function Home() {
   SwiperCore.use([Navigation, Autoplay, Pagination]);
 
   let offerListing = [
     {
       id: 1,
-      address: "new-listing",
+      location: { lat: 38.746422, lng: 48.838066 },
+      address: "Baku",
       bathrooms: 1,
       bedrooms: 1,
       description:
@@ -31,10 +31,11 @@ export default function Home() {
     },
     {
       id: 2,
-      address: "new-listing",
+      location: { lat: 40.409264, lng: 49.867092 },
+      address: "Sumgait",
       bathrooms: 4,
       bedrooms: 2,
-      rooms:5,
+      rooms: 5,
       description: "bomba",
       discountPrice: 200,
       imageUrls: [
@@ -48,7 +49,8 @@ export default function Home() {
     },
     {
       id: 3,
-      address: "new-listing",
+      location: { lat: 40.979858, lng: 47.847832 },
+      address: "Qazax",
       bathrooms: 1,
       bedrooms: 1,
       description: "bomba",
@@ -64,7 +66,8 @@ export default function Home() {
     },
     {
       id: 4,
-      address: "new-listing",
+      location: { lat: 40.979858, lng: 47.847832 },
+      address: "Sumgait",
       bathrooms: 1,
       bedrooms: 1,
       description: "bomba",
@@ -80,7 +83,8 @@ export default function Home() {
     },
     {
       id: 5,
-      address: "new-listing",
+      location: { lat: 40.409264, lng: 49.867092 },
+      address: "Harasa",
       bathrooms: 1,
       bedrooms: 1,
       description: "bomba",
@@ -96,7 +100,8 @@ export default function Home() {
     },
     {
       id: 8,
-      address: "new-listing",
+      location: { lat: 38.746422, lng: 48.838066 },
+      address: "Bura",
       bathrooms: 2,
       bedrooms: 2,
       description: "bomba",
@@ -140,7 +145,7 @@ export default function Home() {
         <div className="flex items-center w-full lg:max-w-6xl mx-auto p-3 ">
           <Swiper
             navigation
-            autoplay={{delay:4000}}
+            autoplay={{ delay: 4000 }}
             pagination={{ clickable: true }}
             className="relative"
           >
@@ -151,52 +156,56 @@ export default function Home() {
                   key={listing.id}
                   className="shadow-lg flex flex-col justify-center"
                 >
-                  <SwiperSlide>
-                    <div
-                      style={{
-                        background: `url(${listing.imageUrls[0]}) center no-repeat `,
-                        backgroundSize: "cover",
-                        // Adjust this value as needed
-                        margin: "0 auto",
-                      }}
-                      className="h-[500px] rounded-t-xl"
-                    ></div>
+                  <SwiperSlide key={listing.id}>
+                    <Link to={`/listing/${listing.id}`} state={{ listing }}>
+                      <div
+                        style={{
+                          background: `url(${listing.imageUrls[0]}) center no-repeat `,
+                          backgroundSize: "cover",
+                          // Adjust this value as needed
+                          margin: "0 auto",
+                        }}
+                        className="h-[500px] rounded-t-xl"
+                      ></div>
 
-                    <div className="bg-white shadow-md mb-4 hover:shadow-lg  transition-shadow overflow-hidden rounded-b-xl w-full  mx-auto p-5 flex flex-col gap-3 items-center sm:items-stretch ">
-                      <div className="flex flex-col sm:flex-row">
-                        <div className=" flex flex-col gap-5 mx-12 w-40 sm:w-96 items-center ">
-                          <h2 className="text-4xl font-bold">{listing.name}</h2>
-                          <div className="flex items-center gap-1 text-2xl">
-                            <MdLocationOn className="h-8 w-8 text-green-700" />
-                            <p className=" text-gray-600 truncate w-full">
-                              {listing.address}
+                      <div className="bg-white shadow-md mb-4 hover:shadow-lg  transition-shadow overflow-hidden rounded-b-xl w-full  mx-auto p-5 flex flex-col gap-3 items-center sm:items-stretch ">
+                        <div className="flex flex-col sm:flex-row">
+                          <div className=" flex flex-col gap-5 mx-12 w-40 sm:w-96 items-center ">
+                            <h2 className="text-4xl font-bold">
+                              {listing.name}
+                            </h2>
+                            <div className="flex items-center gap-1 text-2xl">
+                              <MdLocationOn className="h-8 w-8 text-green-700" />
+                              <p className=" text-gray-600 truncate w-full">
+                                {listing.address}
+                              </p>
+                            </div>
+
+                            <p className="text-2xl text-gray-600 line-clamp-1 w-48 text-center">
+                              {listing.description}
                             </p>
                           </div>
-
-                          <p className="text-2xl text-gray-600 line-clamp-1 w-48 text-center">
-                            {listing.description}
-                          </p>
-                        </div>
-                        <div className="flex flex-col gap-3  sm:w-96 lg:mx-28 items-center mx-6 my-6 sm:pb-8 text-center">
-                          <p className="text-slate-500 mt-2 font-semibold text-3xl">
-                            ${listing.regularPrice.toLocaleString("en-US")}
-                            {listing.type === "rent" && " / month"}
-                          </p>
-                          <div className="text-slate-700 flex gap-4 ">
-                            <div className="font-bold text-xl">
-                              {listing.bedrooms > 1
-                                ? `${listing.bedrooms} beds `
-                                : `${listing.bedrooms} bed `}
-                            </div>
-                            <div className="font-bold text-xl">
-                              {listing.bathrooms > 1
-                                ? `${listing.bathrooms} baths `
-                                : `${listing.bathrooms} bath `}
+                          <div className="flex flex-col gap-3  sm:w-96 lg:mx-28 items-center mx-6 my-6 sm:pb-8 text-center">
+                            <p className="text-slate-500 mt-2 font-semibold text-3xl">
+                              ${listing.regularPrice.toLocaleString("en-US")}
+                              {listing.type === "rent" && " / month"}
+                            </p>
+                            <div className="text-slate-700 flex gap-4 ">
+                              <div className="font-bold text-xl">
+                                {listing.bedrooms > 1
+                                  ? `${listing.bedrooms} beds `
+                                  : `${listing.bedrooms} bed `}
+                              </div>
+                              <div className="font-bold text-xl">
+                                {listing.bathrooms > 1
+                                  ? `${listing.bathrooms} baths `
+                                  : `${listing.bathrooms} bath `}
+                              </div>
                             </div>
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </Link>
                   </SwiperSlide>
                 </div>
               ))}

@@ -4,7 +4,6 @@ import avatar from "../assets/avatar.jpg"; // Assuming the assets folder is in t
 import { MdLocationOn } from "react-icons/md";
 import { useEffect, useState } from "react";
 const APIKEY = import.meta.env.VITE_MAP_API_KEY;
-console.log(APIKEY)
 
 const Header = () => {
   const [locationName, setLocationName] = useState(null);

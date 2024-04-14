@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore from "swiper";
 import { Navigation } from "swiper/modules";
@@ -18,9 +18,9 @@ import {
   MarkerF,
   useLoadScript,
 } from "@react-google-maps/api";
+import avatar from "../assets/avatar.jpg";
 
 const Listing = () => {
-
   //swipper ne isledecek
   SwiperCore.use(Navigation);
 
@@ -32,6 +32,7 @@ const Listing = () => {
   //location state ile listingi getirmek
   const location = useLocation();
   const { listing } = location.state;
+  console.log(listing.location)
 
   //stateler
   const [locationName, setLocationName] = useState(null);
@@ -39,7 +40,7 @@ const Listing = () => {
   const [activeMarker, setActiveMarker] = useState(null);
 
   //location name almaq
-  const listingLocation = { lat: 41.430038, lng: 48.43425 };
+  const listingLocation = listing.location;
   const getPlaceAndName = async (latitude, longitude) => {
     try {
       const response = await fetch(
@@ -59,6 +60,7 @@ const Listing = () => {
   useEffect(() => {
     getPlaceAndName(listingLocation.lat, listingLocation.lng);
   }, [params.listingId]);
+  let username = "Ilkin Baba"
 
   return (
     <main>
@@ -95,12 +97,22 @@ const Listing = () => {
             </p>
           )}
           <div className="flex flex-col max-w-6xl mx-auto p-3 my-7 gap-4 items-center  sm:items-stretch">
-            <p className="text-2xl font-semibold">
+            <p className="text-4xl font-bold mx-auto">
               {listing.name} - $ {listing.regularPrice.toLocaleString("en-US")}
               {listing.type === "rent" && " / month"}
             </p>
+            <div className="py-6 flex">
+              <Link to="/profile" className="flex gap-4 items-center px-1">
+                <img
+                  className="rounded-full h-8  w-8  sm:w-12  sm:h-12  object-cover  "
+                  src={avatar}
+                  alt="profile"
+                />
+                <p className="text-2xl font-semibold">{username}</p>
+              </Link>
+            </div>
             <p className="flex items-center mt-6 gap-2 text-slate-600  text-sm">
-              <FaMapMarkerAlt className="text-green-700" />
+              Location:<FaMapMarkerAlt className="text-green-700" />
               {locationName}
             </p>
             <div
@@ -135,15 +147,15 @@ const Listing = () => {
               ) : null}
             </div>
             <div className="flex gap-4">
-              <p className="bg-red-900 w-full max-w-[200px] text-white text-center p-1 rounded-md">
+              <p className="bg-red-900 w-full max-w-[200px] text-white text-center p-1 rounded-md px-8 sm:px-0">
                 {listing.type === "rent" ? "For Rent" : "For Sale"}
               </p>
             </div>
-            <p className="text-slate-800">
+            <p className="text-slate-800 text-xl py-4 mx-auto px-4 sm:px-0">
               <span className="font-semibold text-black">Description - </span>
               {listing.description}
             </p>
-            <ul className="text-green-900 font-semibold text-sm flex flex-wrap items-center gap-4 sm:gap-6">
+            <ul className="text-green-900 font-semibold text-sm flex flex-wrap items-center gap-4 sm:gap-6 py-4" >
               <li className="flex items-center gap-1 whitespace-nowrap ">
                 <MdMeetingRoom className="text-lg" />
                 {listing.rooms > 1
