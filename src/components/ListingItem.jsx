@@ -7,7 +7,7 @@ export default function ListingItem({ listing }) {
   let username = "Ilkin Baba";
   return (
     <div className="bg-white shadow-md mb-4 hover:shadow-lg transition-shadow overflow-hidden rounded-lg w-full sm:w-[270px]">
-      <Link to={`/listing/${listing._id}`}>
+      <Link to={`/listing/${listing.id}`} state={{ listing }}>
         <img
           src={
             listing.imageUrls[0] ||
@@ -40,10 +40,7 @@ export default function ListingItem({ listing }) {
             {listing.description}
           </p>
           <p className="text-slate-500 mt-2 font-semibold ">
-            $
-            {listing.offer
-              ? listing.discountPrice.toLocaleString("en-US")
-              : listing.regularPrice.toLocaleString("en-US")}
+            ${listing.regularPrice.toLocaleString("en-US")}
             {listing.type === "rent" && " / month"}
           </p>
           <div className="text-slate-700 flex gap-4">

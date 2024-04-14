@@ -3,7 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore from "swiper";
 import { Navigation, Autoplay, Pagination } from "swiper/modules";
 import "swiper/css/bundle";
-import ListingItem from "../components/Listing";
+import ListingItem from "../components/ListingItem";
 import { MdLocationOn } from "react-icons/md";
 
 
@@ -21,7 +21,7 @@ export default function Home() {
       discountPrice: 0,
       imageUrls: [
         "https://thumbor.forbes.com/thumbor/fit-in/900x510/https://www.forbes.com/home-improvement/wp-content/uploads/2022/07/download-23.jpg",
-        "https://www.mydomaine.com/thmb/bepet4VMGUG70sCLFNQRdZm9bbg=/2048x0/filters:no_upscale():strip_icc()/SuCasaDesign-Modern-9335be77ca0446c7883c5cf8d974e47c.jpg",
+        "https://assets.site-static.com/userFiles/2470/image/blogs/2022/IlluminateVintageLLC-170904-Minimalist-Interior-Design-image1.jpg",
       ],
       name: "bag evi",
       offer: false,
@@ -32,18 +32,19 @@ export default function Home() {
     {
       id: 2,
       address: "new-listing",
-      bathrooms: 1,
-      bedrooms: 1,
+      bathrooms: 4,
+      bedrooms: 2,
+      rooms:5,
       description: "bomba",
-      discountPrice: 0,
+      discountPrice: 200,
       imageUrls: [
         "https://img.freepik.com/premium-photo/big-american-house-generative-ai_170984-9624.jpg?size=626&ext=jpg&ga=GA1.1.1700460183.1712620800&semt=sph",
       ],
-      name: "bag evi",
-      offer: false,
-      parking: false,
+      name: "Bag evi",
+      offer: true,
+      parking: true,
       regularPrice: "50000",
-      type: "sale",
+      type: "rent",
     },
     {
       id: 3,
@@ -134,7 +135,7 @@ export default function Home() {
 
       <div className="flex flex-col max-w-6xl mx-auto">
         <h1 className="text-slate-700 font-bold text-3xl pl-4 ">
-          Sene en yaxinlar{" "}
+          Sənə ən yaxinlar{" "}
         </h1>
         <div className="flex items-center w-full lg:max-w-6xl mx-auto p-3 ">
           <Swiper
@@ -178,10 +179,7 @@ export default function Home() {
                         </div>
                         <div className="flex flex-col gap-3  sm:w-96 lg:mx-28 items-center mx-6 my-6 sm:pb-8 text-center">
                           <p className="text-slate-500 mt-2 font-semibold text-3xl">
-                            $
-                            {listing.offer
-                              ? listing.discountPrice.toLocaleString("en-US")
-                              : listing.regularPrice.toLocaleString("en-US")}
+                            ${listing.regularPrice.toLocaleString("en-US")}
                             {listing.type === "rent" && " / month"}
                           </p>
                           <div className="text-slate-700 flex gap-4 ">

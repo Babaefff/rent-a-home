@@ -1,6 +1,4 @@
-
-
-const APIKEY =  import.meta.env.VITE_MAP_API_KEY
+const APIKEY = import.meta.env.VITE_MAP_API_KEY;
 
 import { Fragment, useEffect, useRef, useState } from "react";
 import {
@@ -9,6 +7,7 @@ import {
   MarkerF,
   useLoadScript,
 } from "@react-google-maps/api";
+import _ from "lodash";
 const libraries = ["places"];
 
 export default function Maps() {
@@ -32,7 +31,11 @@ export default function Maps() {
   };
   if (isLoaded) {
     const autoComplete = new window.google.maps.places.Autocomplete(
-      inputRef.current
+      inputRef.current,
+      {
+        types: ["establishment"],
+        fields: ["geometry"],
+      }
     );
     autoComplete.addListener("place_changed", () => {
       const place = autoComplete.getPlace();
@@ -67,6 +70,10 @@ export default function Maps() {
     getUserLocation();
   }, []);
 
+  const debouncedGetPlaceAndName = _.debounce((latitude, longitude) => {
+    getPlaceAndName(latitude, longitude);
+  }, 300);
+
   const getCurrentPosition = () =>
     new Promise((resolve, reject) =>
       navigator.geolocation.getCurrentPosition(resolve, reject)
@@ -90,7 +97,7 @@ export default function Maps() {
       lng: event.latLng.lng(),
     };
     setPlace(newPlace);
-    getPlaceAndName(newPlace.lat, newPlace.lng);
+    debouncedGetPlaceAndName(newPlace.lat, newPlace.lng);
     setActiveMarker(null);
   };
 
@@ -109,7 +116,11 @@ export default function Maps() {
               center={place}
               zoom={14}
               onClick={handleMapClick}
-              mapContainerStyle={{ width: "80%", height: "27vh",  margin:"auto"}}
+              mapContainerStyle={{
+                width: "80%",
+                height: "27vh",
+                margin: "auto",
+              }}
             >
               {place && (
                 <MarkerF
