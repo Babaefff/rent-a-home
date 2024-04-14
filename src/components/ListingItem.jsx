@@ -4,7 +4,9 @@ import { MdLocationOn } from "react-icons/md";
 import avatar from "../assets/avatar.jpg";
 
 export default function ListingItem({ listing }) {
+
   let username = "Ilkin Baba";
+  
   return (
     <div className="bg-white shadow-md mb-4 hover:shadow-lg transition-shadow overflow-hidden rounded-lg w-full sm:w-[270px]">
       <Link to={`/listing/${listing.id}`} state={{ listing }}>

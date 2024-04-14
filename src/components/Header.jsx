@@ -1,26 +1,15 @@
 import { FaBars, FaSearch } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import avatar from "../assets/avatar.jpg"; // Assuming the assets folder is in the src directory
+import avatar from "../assets/avatar.jpg"; 
 import { MdLocationOn } from "react-icons/md";
 import { useEffect, useState } from "react";
 const APIKEY = import.meta.env.VITE_MAP_API_KEY;
 
 const Header = () => {
+
   const [locationName, setLocationName] = useState(null);
-  useEffect(() => {
-    const getUserLocation = async () => {
-      try {
-        const position = await getCurrentPosition();
-        const { latitude, longitude } = position.coords;
-        await getPlaceAndName(latitude, longitude);
-      } catch (error) {
-        console.error("Error getting user location:", error);
-      }
-    };
 
-    getUserLocation();
-  }, []);
-
+  //getcurrent position and name for header
   const getCurrentPosition = () =>
     new Promise((resolve, reject) =>
       navigator.geolocation.getCurrentPosition(resolve, reject)
@@ -37,6 +26,21 @@ const Header = () => {
       console.error("Error getting place and name:", error);
     }
   };
+
+  //getting this first render
+  useEffect(() => {
+    const getUserLocation = async () => {
+      try {
+        const position = await getCurrentPosition();
+        const { latitude, longitude } = position.coords;
+        await getPlaceAndName(latitude, longitude);
+      } catch (error) {
+        console.error("Error getting user location:", error);
+      }
+    };
+
+    getUserLocation();
+  }, []);
 
   return (
     <header className="shadow-md" style={{ backgroundColor: "#AB6F43" }}>
@@ -56,7 +60,6 @@ const Header = () => {
           />
           <FaSearch className="text-slate-600" />
         </form>
-
         <ul className="flex gap-5 items-center">
           <div className="hidden md:flex items-center gap-1 p-2">
             <MdLocationOn className="h-6 w-6 text-green-700" />

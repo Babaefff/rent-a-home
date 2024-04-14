@@ -7,15 +7,13 @@ import {
   MarkerF,
   useLoadScript,
 } from "@react-google-maps/api";
+
 import _ from "lodash";
 const libraries = ["places"];
 
 export default function Maps() {
-  const { isLoaded } = useLoadScript({
-    googleMapsApiKey: APIKEY,
-    libraries: libraries,
-  });
-
+  
+  //for autocomplete input
   const inputRef = useRef();
   const inputStyle = {
     boxShadow: "inset 0 0 10px #eee !important",
@@ -29,6 +27,14 @@ export default function Maps() {
     padding: "10px 20px",
     marginBottom: "10px",
   };
+
+  //load map
+  const { isLoaded } = useLoadScript({
+    googleMapsApiKey: APIKEY,
+    libraries: libraries,
+  });
+  
+  //getting autocomplete if map loaded
   if (isLoaded) {
     const autoComplete = new window.google.maps.places.Autocomplete(
       inputRef.current,
@@ -43,18 +49,18 @@ export default function Maps() {
         alert("This location is not available");
         return;
       }
-      // Do something with the valid place object
-
       const lat = place.geometry.location.lat();
       const lng = place.geometry.location.lng();
       setPlace({ lat: lat, lng: lng });
     });
   }
 
+  //states
   const [activeMarker, setActiveMarker] = useState(null);
   const [place, setPlace] = useState(null);
   const [locationName, setLocationName] = useState(null);
 
+  //getting user location first render
   useEffect(() => {
     const getUserLocation = async () => {
       try {
@@ -70,15 +76,12 @@ export default function Maps() {
     getUserLocation();
   }, []);
 
-  const debouncedGetPlaceAndName = _.debounce((latitude, longitude) => {
-    getPlaceAndName(latitude, longitude);
-  }, 300);
-
   const getCurrentPosition = () =>
     new Promise((resolve, reject) =>
       navigator.geolocation.getCurrentPosition(resolve, reject)
     );
 
+  //getting name of place
   const getPlaceAndName = async (latitude, longitude) => {
     try {
       const response = await fetch(
@@ -91,6 +94,12 @@ export default function Maps() {
     }
   };
 
+  //debounce for reducing api calls
+  const debouncedGetPlaceAndName = _.debounce((latitude, longitude) => {
+    getPlaceAndName(latitude, longitude);
+  }, 300);
+
+  //map marker click handle
   const handleMapClick = (event) => {
     const newPlace = {
       lat: event.latLng.lat(),

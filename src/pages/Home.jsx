@@ -7,8 +7,10 @@ import ListingItem from "../components/ListingItem";
 import { MdLocationOn } from "react-icons/md";
 
 export default function Home() {
+  //swipper used things
   SwiperCore.use([Navigation, Autoplay, Pagination]);
 
+  //offerlisting static data
   let offerListing = [
     {
       id: 1,
